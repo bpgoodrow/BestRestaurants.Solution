@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using BestRestaurants.Models;
 using System.Collections.Generic;
 using System.Linq;
-using BestRestaurants.Models;
 
 namespace BestRestaurants.Controllers
 {
@@ -17,55 +18,56 @@ namespace BestRestaurants.Controllers
 
     public ActionResult Index()
     {
-      List<Restaurants> model = _db.Restaurants.ToList();
-      return view(model);
+      List<Restaurant> model = _db.Restaurants.Include(restaurant => restaurant.Cuisine).ToList();
+      return View(model);
     }
 
     public ActionResult Create()
     {
+      ViewBag.CuisineId = new SelectList(_db.Cuisines, "CuisineId", "Name");
       return View();
     }
 
     [HttpPost]
-    public ActionResult Create(Restaurants restaurants)
+    public ActionResult Create(Restaurant restaurant)
     {
-      _db.Restaurants.Add(restaurants);
+      _db.Restaurants.Add(restaurant);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-    
+
     public ActionResult Details(int id)
     {
-      Restaurants thisRestaurants = _db.Restaurants.
-      FirstOrDefault(restaurants => restaurants.RestaurantsId == id);
-      return View(thisRestaurants);
+      Restaurant thisRestaurant = _db.Restaurants.FirstOrDefault(restaurant => restaurant.RestaurantId == id);
+      return View(thisRestaurant);
     }
-    
+
     public ActionResult Edit(int id)
     {
-      var thisRestaurants = _db.Restaurants.FirstOrDefault(restaurants => restaurants.RestaurantsId == id);
-      return view(thisRestaurants);
+      var thisRestaurant = _db.Restaurants.FirstOrDefault(restaurant => restaurant.RestaurantId == id);
+      ViewBag.CuisineId = new SelectList(_db.Cuisines, "CuisineId", "Name");
+      return View(thisRestaurant);
     }
-    
+
     [HttpPost]
-    public ActionResult Edit(Restaurants restaurants)
+    public ActionResult Edit(Restaurant restaurant)
     {
-      _db.Entry(restaurants).State = EntityState.Modified;
+      _db.Entry(restaurant).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
     public ActionResult Delete(int id)
     {
-      var thisRestaurants = _db.Restaurants.FirstOrDefault(restaurants => restaurants.RestaurantsId == id);
-      return View(thisRestaurants);
+      var thisRestaurant = _db.Restaurants.FirstOrDefault(restaurant => restaurant.RestaurantId == id);
+      return View(thisRestaurant);
     }
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      var thisRestaurants = _db.Restaurants.FirstOrDefault(restaurants => restaurants.RestaurantsId == id);
-      _db.Restaurants.Remove(thisRestaurants);
+      var thisRestaurant = _db.Restaurants.FirstOrDefault(restaurants => restaurant.RestaurantId == id);
+      _db.Restaurants.Remove(thisRestaurant);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
