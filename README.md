@@ -21,7 +21,7 @@
 
 _This is a C# MVC application to keep track of our favorite restaurants. This application use two tables in the schema of best_restaurant and it is managed by the MySQL workbench. This allows users to add restaurants name, description, and address to a particular cuisine. It will then be input into your database that you created._
 
-![image](img/BestRestaurantsSchema.JPG)
+![image](BestRestaurantsSchema.JPG)
 
 ## Setup/Installation Requirements
 
