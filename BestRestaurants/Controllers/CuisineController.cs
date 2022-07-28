@@ -18,7 +18,7 @@ namespace BestRestaurants.Controllers
     public ActionResult Index()
     {
       List<Cuisine> model = _db.Cuisines.ToList();
-      return view(model);
+      return View(model);
     }
 
     public ActionResult Create()
@@ -43,7 +43,7 @@ namespace BestRestaurants.Controllers
     public ActionResult Edit(int id)
     {
       var thisCuisine = _db.Cuisines.FirstOrDefault(cuisine => cuisine.CuisineId == id);
-      return view(thisCuisine);
+      return View(thisCuisine);
     }
     
     [HttpPost]
