@@ -1,0 +1,30 @@
+h1 {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+
+#header {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 50px;
+  background-color: lightblue;
+}
+
+body {
+  background-color: rgb(89, 150, 171);
+  text-align: center;
+}
+
+.home {
+  top: 60px;
+  position: relative;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 50px;
+  background-color: lightblue;
+}
